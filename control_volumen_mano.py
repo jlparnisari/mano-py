@@ -21,7 +21,7 @@ import urllib.request
 import os
 import threading
 
-# ─── Descargar modelo si no existe ───────────────────────────────────────────
+# Descargar modelo si no existe
 MODEL_PATH = "hand_landmarker.task"
 MODEL_URL  = "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"
 
@@ -42,7 +42,7 @@ import mediapipe as mp
 from mediapipe.tasks import python as mp_python
 from mediapipe.tasks.python.vision import HandLandmarker, HandLandmarkerOptions, RunningMode
 
-# ─── Control de volumen (en hilo separado para no bloquear el video) ──────────
+# Control de volumen (en hilo separado para no bloquear el video)
 OS = platform.system()
 _vol_lock   = threading.Lock()
 _vol_target = 50
@@ -57,7 +57,7 @@ def _volume_worker():
         if target != _vol_actual:
             _apply_volume(target)
             _vol_actual = target
-        import time; time.sleep(0.05)   # revisa 20 veces por segundo
+        import time; time.sleep(0.05)
 
 def _apply_volume(pct: int):
     pct = max(0, min(100, int(pct)))
@@ -122,7 +122,7 @@ options = HandLandmarkerOptions(
 )
 detector = HandLandmarker.create_from_options(options)
 
-# ─── Parámetros ───────────────────────────────────────────────────────────────
+# Parámetros
 DIST_MIN    = 20
 DIST_MAX    = 220
 SMOOTHING   = 0.2
@@ -136,7 +136,7 @@ CONNECTIONS = [
     (5,9),(9,13),(13,17),
 ]
 
-# ─── Cámara ───────────────────────────────────────────────────────────────────
+# Cámara
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("[ERROR] No se pudo abrir la cámara."); sys.exit(1)
